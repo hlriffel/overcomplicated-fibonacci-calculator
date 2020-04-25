@@ -1,0 +1,21 @@
+services:
+  - docker
+
+before_install:
+  - docker build -t hlriffel/fib-client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true hlriffel/fib-client-test npm test
+
+after_success:
+  - docker build -t hlriffel/fib-client ./client
+  - docker build -t hlriffel/fib-nginx ./nginx
+  - docker build -t hlriffel/fib-server ./server
+  - docker build -t hlriffel/fib-worker ./worker
+  # Log in to Docker Hub in order to push the images
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Pushing the images
+  - docker push hlriffel/fib-client
+  - docker push hlriffel/fib-nginx
+  - docker push hlriffel/fib-server
+  - docker push hlriffel/fib-worker
