@@ -2,28 +2,28 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "client",
+      "name": "fib-client",
       "image": "hlriffel/fib-client",
-      "hostname": "client",
+      "hostname": "fib-client",
       "essential": false,
       "memory": 128
     },
     {
-      "name": "server",
+      "name": "fib-server",
       "image": "hlriffel/fib-server",
-      "hostname": "server",
+      "hostname": "fib-server",
       "essential": false,
       "memory": 128
     },
     {
-      "name": "worker",
+      "name": "fib-worker",
       "image": "hlriffel/fib-worker",
-      "hostname": "worker",
+      "hostname": "fib-worker",
       "essential": false,
       "memory": 128
     },
     {
-      "name": "nginx",
+      "name": "fib-nginx",
       "image":"hlriffel/fib-nginx",
       "essential": true,
       "memory": 128,
@@ -34,8 +34,8 @@
         }
       ],
       "links": [
-        "client",
-        "server"
+        "fib-client",
+        "fib-server"
       ]
     }
   ]
