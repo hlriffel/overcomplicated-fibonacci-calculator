@@ -20,3 +20,16 @@ after_success:
   - docker push hlriffel/fib-nginx
   - docker push hlriffel/fib-server
   - docker push hlriffel/fib-worker
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: fib-docker
+  env: FibDocker-env
+  bucket_name: elasticbeanstalk-us-east-1-310779391329
+  bucket_path: fib-docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
